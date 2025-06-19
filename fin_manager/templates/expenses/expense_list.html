@@ -1,0 +1,26 @@
+{% block content %}
+  <h2>Expense List</h2>
+  <div class="expenses">
+    {% for year_month, liabilities in expense_data.items %}
+      <div class="month">
+        <h3>{{ year_month }}</h3>
+        <ul>
+          {% for liability in liabilities %}
+            <li>
+              {{ liability.name }} - ${{ liability.amount }}
+              <button class="toggle-button">Toggle End Date</button>
+              <span class="end-date" style="display: none;">End Date: {{ liability.end_date }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+  </div>
+
+  <h2>Add Liability</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Liability</button>
+  </form>
+{% endblock %}
